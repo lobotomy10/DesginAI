@@ -23,7 +23,7 @@ import { ChevronRight, Users, Code, Rocket, Clock, CheckCircle, Play, Pause, Zap
  */
 
 const BusinessCreationDemo = () => {
-  const [currentStage, setCurrentStage] = useState(0);
+  const [currentStage, setCurrentStage] = useState(-1);
   const [voteCount, setVoteCount] = useState(0);
   const [isVoting, setIsVoting] = useState(false);
   const [developmentProgress, setDevelopmentProgress] = useState(0);
@@ -47,6 +47,14 @@ const BusinessCreationDemo = () => {
       businessName: "AI健康管理アシスタント",
       businessDescription: "個人の健康データを分析し、パーソナライズされた健康アドバイスを提供するアプリ",
       keywords: ["健康", "AI", "パーソナライズ", "データ分析", "ウェルネス"],
+      floatingKeywords: [
+        "AI", "人工知能", "機械学習", "ディープラーニング", "ニューラルネットワーク",
+        "ビッグデータ", "クラウド", "IoT", "ブロックチェーン", "AR/VR",
+        "ロボティクス", "自動化", "デジタル変革", "スマートシティ", "フィンテック",
+        "ヘルステック", "エドテック", "アグリテック", "モビリティ", "サステナビリティ",
+        "イノベーション", "スタートアップ", "ベンチャー", "起業", "投資",
+        "マーケティング", "ブランディング", "UX/UI", "デザイン思考", "アジャイル"
+      ],
       neuralConsensus: "NEURAL CONSENSUS",
       processingData: "PROCESSING NEURAL DATA...",
       consensusAchieved: "CONSENSUS ACHIEVED",
@@ -134,6 +142,14 @@ const BusinessCreationDemo = () => {
       businessName: "AI Health Management Assistant",
       businessDescription: "An app that analyzes personal health data and provides personalized health advice",
       keywords: ["Health", "AI", "Personalization", "Data Analysis", "Wellness"],
+      floatingKeywords: [
+        "AI", "Artificial Intelligence", "Machine Learning", "Deep Learning", "Neural Networks",
+        "Big Data", "Cloud Computing", "IoT", "Blockchain", "AR/VR",
+        "Robotics", "Automation", "Digital Transformation", "Smart Cities", "FinTech",
+        "HealthTech", "EdTech", "AgriTech", "Mobility", "Sustainability",
+        "Innovation", "Startups", "Ventures", "Entrepreneurship", "Investment",
+        "Marketing", "Branding", "UX/UI", "Design Thinking", "Agile"
+      ],
       neuralConsensus: "NEURAL CONSENSUS",
       processingData: "PROCESSING NEURAL DATA...",
       consensusAchieved: "CONSENSUS ACHIEVED",
@@ -344,6 +360,65 @@ const BusinessCreationDemo = () => {
       ))}
     </div>
   );
+
+  if (currentStage === -1) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black relative overflow-hidden">
+        <ParticleBackground />
+        <LanguageToggle />
+        
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `
+              linear-gradient(cyan 1px, transparent 1px),
+              linear-gradient(90deg, cyan 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }} />
+        </div>
+
+        <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
+          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-cyan-500/20 p-6 max-w-full w-full">
+            <div className="text-center mb-8">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-4">
+                KEYWORD NEURAL MATRIX
+              </h1>
+              <p className="text-gray-300 text-lg">
+                {language === 'ja' ? 'キーワード展開システム起動中...' : 'Keyword Expansion System Initializing...'}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-3 mb-8 max-h-96 overflow-hidden">
+              {t.floatingKeywords.map((keyword, index) => (
+                <div
+                  key={index}
+                  className="floating-keyword bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 px-4 py-2 rounded-full text-sm font-medium border border-cyan-500/30 backdrop-blur-sm hover:from-cyan-500/30 hover:to-blue-500/30 transition-all duration-300"
+                  style={{
+                    animationDelay: `${index * 0.1}s`
+                  }}
+                >
+                  {keyword}
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center">
+              <button
+                onClick={() => setCurrentStage(0)}
+                className="relative group overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300" />
+                <div className="relative bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white py-3 px-8 rounded-xl font-bold text-base transition-all duration-300 flex items-center justify-center gap-2">
+                  <Zap className="w-5 h-5" />
+                  {language === 'ja' ? 'ニューラル投票システムへ進む' : 'PROCEED TO NEURAL VOTING SYSTEM'}
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (currentStage === 0) {
     return (
@@ -898,7 +973,7 @@ const BusinessCreationDemo = () => {
 
             <button
               onClick={() => {
-                setCurrentStage(0);
+                setCurrentStage(-1);
                 setVoteCount(0);
                 setDevelopmentProgress(0);
                 // ⏰ TIME MATRIX設定 - リセット時の初期時間（上記の初期値と同じ値にする）
