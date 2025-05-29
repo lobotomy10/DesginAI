@@ -263,10 +263,10 @@ const BusinessCreationDemo = () => {
     setCurrentStage(3);
     const interval = setInterval(() => {
       setDevelopmentProgress(prev => {
-        if (prev >= 100) {
+        if (prev >= 50) {
           clearInterval(interval);
           setCurrentStage(4);
-          return 100;
+          return 50; // 50%で停止
         }
         if (prev >= 30) {
           return prev + Math.random() * 0.2 + 0.1; // 30%以降は約0.1〜0.3%の増加
