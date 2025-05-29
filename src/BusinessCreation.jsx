@@ -35,6 +35,9 @@ const BusinessCreationDemo = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [particles, setParticles] = useState([]);
   
+  const [userKeywords, setUserKeywords] = useState([]);
+  const [keywordInput, setKeywordInput] = useState('');
+  
   // 🌐 言語切り替え機能
   const [language, setLanguage] = useState('ja'); // 'ja' or 'en'
 
@@ -59,6 +62,11 @@ const BusinessCreationDemo = () => {
       processingData: "PROCESSING NEURAL DATA...",
       consensusAchieved: "CONSENSUS ACHIEVED",
       initiateVoting: "INITIATE VOTING PROTOCOL",
+      
+      keywordInputLabel: "キーワードを入力してください（1行に1つずつ）:",
+      keywordInputPlaceholder: "AI\n人工知能\n機械学習\n...",
+      generateKeywords: "キーワード生成",
+      clearKeywords: "クリア",
       
       // Stage 1 - 事業決定画面  
       consensusLocked: "CONSENSUS LOCKED",
@@ -154,6 +162,11 @@ const BusinessCreationDemo = () => {
       processingData: "PROCESSING NEURAL DATA...",
       consensusAchieved: "CONSENSUS ACHIEVED",
       initiateVoting: "INITIATE VOTING PROTOCOL",
+      
+      keywordInputLabel: "Enter keywords (one per line):",
+      keywordInputPlaceholder: "AI\nArtificial Intelligence\nMachine Learning\n...",
+      generateKeywords: "Generate Keywords",
+      clearKeywords: "Clear",
       
       // Stage 1 - 事業決定画面
       consensusLocked: "CONSENSUS LOCKED", 
@@ -305,6 +318,19 @@ const BusinessCreationDemo = () => {
     }, 1000); // 更新間隔: 1000ms = 1秒, 500ms = 0.5秒, 2000ms = 2秒
   };
 
+  const handleKeywordSubmit = () => {
+    const keywords = keywordInput
+      .split('\n')
+      .map(keyword => keyword.trim())
+      .filter(keyword => keyword.length > 0);
+    setUserKeywords(keywords);
+  };
+
+  const handleClearKeywords = () => {
+    setUserKeywords([]);
+    setKeywordInput('');
+  };
+
   const formatTime = (seconds) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -388,19 +414,64 @@ const BusinessCreationDemo = () => {
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-3 mb-8 max-h-96 overflow-hidden">
-              {t.floatingKeywords.map((keyword, index) => (
-                <div
-                  key={index}
-                  className="floating-keyword bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 px-4 py-2 rounded-full text-sm font-medium border border-cyan-500/30 backdrop-blur-sm hover:from-cyan-500/30 hover:to-blue-500/30 transition-all duration-300"
-                  style={{
-                    animationDelay: `${index * 0.1}s`
-                  }}
+            {/* キーワード入力フォーム */}
+            <div className="mb-8">
+              <label className="block text-cyan-300 text-lg font-medium mb-4">
+                {language === 'ja' ? t.ja.keywordInputLabel : t.en.keywordInputLabel}
+              </label>
+              <textarea
+                value={keywordInput}
+                onChange={(e) => setKeywordInput(e.target.value)}
+                placeholder={language === 'ja' ? t.ja.keywordInputPlaceholder : t.en.keywordInputPlaceholder}
+                className="w-full h-32 bg-gray-800/50 border border-cyan-500/30 rounded-lg p-4 text-cyan-300 placeholder-gray-500 backdrop-blur-sm focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300"
+                rows={6}
+              />
+              <div className="flex gap-4 mt-4">
+                <button
+                  onClick={handleKeywordSubmit}
+                  className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white py-2 px-6 rounded-lg font-bold transition-all duration-300"
                 >
-                  {keyword}
-                </div>
-              ))}
+                  {language === 'ja' ? t.ja.generateKeywords : t.en.generateKeywords}
+                </button>
+                <button
+                  onClick={handleClearKeywords}
+                  className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white py-2 px-6 rounded-lg font-bold transition-all duration-300"
+                >
+                  {language === 'ja' ? t.ja.clearKeywords : t.en.clearKeywords}
+                </button>
+              </div>
             </div>
+
+            {/* 浮上するキーワード表示 */}
+            {userKeywords.length > 0 ? (
+              <div className="flex flex-wrap justify-center gap-4 mb-8 max-h-96 overflow-hidden">
+                {userKeywords.map((keyword, index) => (
+                  <div
+                    key={index}
+                    className="floating-keyword bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 px-6 py-3 rounded-full text-lg font-medium border border-cyan-500/30 backdrop-blur-sm hover:from-cyan-500/30 hover:to-blue-500/30 transition-all duration-300"
+                    style={{
+                      animationDelay: `${index * 0.1}s`
+                    }}
+                  >
+                    {keyword}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-wrap justify-center gap-3 mb-8 max-h-96 overflow-hidden">
+                {t.floatingKeywords.map((keyword, index) => (
+                  <div
+                    key={index}
+                    className="floating-keyword bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 px-4 py-2 rounded-full text-sm font-medium border border-cyan-500/30 backdrop-blur-sm hover:from-cyan-500/30 hover:to-blue-500/30 transition-all duration-300"
+                    style={{
+                      animationDelay: `${index * 0.1}s`
+                    }}
+                  >
+                    {keyword}
+                  </div>
+                ))}
+              </div>
+            )}
 
             <div className="text-center">
               <button
