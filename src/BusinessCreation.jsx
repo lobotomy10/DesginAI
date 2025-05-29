@@ -268,7 +268,11 @@ const BusinessCreationDemo = () => {
           setCurrentStage(4);
           return 100;
         }
-        return prev + Math.random() * 0.5 + 0.2; // より遅い進行
+        if (prev >= 30) {
+          return prev + Math.random() * 0.2 + 0.1; // 30%以降は約0.1〜0.3%の増加
+        } else {
+          return prev + Math.random() * 0.5 + 0.2; // 30%未満は約0.2〜0.7%の増加
+        }
       });
     }, 200);
 
@@ -641,43 +645,43 @@ const BusinessCreationDemo = () => {
 
   if (currentStage === 3) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-red-900 to-black relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-green-900 to-black relative overflow-hidden">
         <ParticleBackground />
         <LanguageToggle />
         
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{
             backgroundImage: `
-              linear-gradient(#ef4444 1px, transparent 1px),
-              linear-gradient(90deg, #ef4444 1px, transparent 1px)
+              linear-gradient(#22c55e 1px, transparent 1px),
+              linear-gradient(90deg, #22c55e 1px, transparent 1px)
             `,
             backgroundSize: '30px 30px'
           }} />
         </div>
 
         <div className="relative z-10 flex items-center justify-center min-h-screen p-2">
-          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-red-500/20 p-4 max-w-full w-full">
+          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-green-500/20 p-4 max-w-full w-full">
             <div className="text-center mb-4">
               <div className="relative mb-3">
-                <Clock className="w-12 h-12 text-red-400 mx-auto animate-spin" />
-                <div className="absolute inset-0 bg-red-400/20 rounded-full animate-ping" />
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center animate-pulse">
+                <Clock className="w-12 h-12 text-green-400 mx-auto animate-spin" />
+                <div className="absolute inset-0 bg-green-400/20 rounded-full animate-ping" />
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-green-500 to-cyan-500 rounded-full flex items-center justify-center animate-pulse">
                   <Zap className="w-2 h-2 text-white" />
                 </div>
               </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent mb-1">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent mb-1">
                 {t.synthesisActive}
               </h1>
               <p className="text-gray-300 text-sm">{t.quantumProgress}</p>
             </div>
 
             <div className="text-center mb-4">
-              <div className="bg-gradient-to-br from-red-900/50 to-orange-900/50 rounded-xl p-4 border border-red-500/30 backdrop-blur-sm max-w-md mx-auto">
+              <div className="bg-gradient-to-br from-green-900/50 to-cyan-900/50 rounded-xl p-4 border border-green-500/30 backdrop-blur-sm max-w-md mx-auto">
                 <h3 className="text-base font-semibold text-white mb-2 flex items-center justify-center gap-2">
-                  <Clock className="w-4 h-4 text-red-400" />
+                  <Clock className="w-4 h-4 text-green-400" />
                   {t.timeMatrix}
                 </h3>
-                <div className="text-3xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent mb-1 font-mono">
+                <div className="text-3xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent mb-1 font-mono">
                   {formatTime(timeRemaining)}
                 </div>
                 <div className="text-gray-400 text-sm">{t.countdownLaunch}</div>
@@ -685,13 +689,13 @@ const BusinessCreationDemo = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl p-4 border border-red-500/20 backdrop-blur-sm">
+              <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl p-4 border border-green-500/20 backdrop-blur-sm">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                    <Brain className="w-4 h-4 text-red-400" />
+                    <Brain className="w-4 h-4 text-green-400" />
                     {t.neuralProgress}
                   </h3>
-                  <div className="text-xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent font-mono">
+                  <div className="text-xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent font-mono">
                     {Math.round(developmentProgress)}%
                   </div>
                 </div>
@@ -699,13 +703,13 @@ const BusinessCreationDemo = () => {
                 <div className="relative mb-3">
                   <div className="w-full bg-gray-700/50 rounded-full h-3 backdrop-blur-sm border border-gray-600/30">
                     <div 
-                      className="bg-gradient-to-r from-red-500 to-orange-500 h-3 rounded-full transition-all duration-300 relative overflow-hidden"
+                      className="bg-gradient-to-r from-green-500 to-cyan-500 h-3 rounded-full transition-all duration-300 relative overflow-hidden"
                       style={{ width: `${developmentProgress}%` }}
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse" />
                     </div>
                   </div>
-                  <div className="absolute -inset-1 bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-full blur-sm -z-10" />
+                  <div className="absolute -inset-1 bg-gradient-to-r from-green-500/20 to-cyan-500/20 rounded-full blur-sm -z-10" />
                 </div>
 
                 <div className="space-y-1">
@@ -718,26 +722,26 @@ const BusinessCreationDemo = () => {
                       <div key={index} className="relative group">
                         <div className={`absolute inset-0 rounded-lg transition-all duration-500 ${
                           isCompleted ? 'bg-green-500/10' : 
-                          isInProgress ? 'bg-red-500/10' : 'bg-gray-500/5'
+                          isInProgress ? 'bg-green-500/10' : 'bg-gray-500/5'
                         }`} />
                         <div className="relative flex items-center gap-2 p-2 rounded-lg border border-gray-600/30 backdrop-blur-sm">
                           <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-500 ${
                             isCompleted ? 'bg-gradient-to-r from-green-500 to-green-400 text-white' :
-                            isInProgress ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white' :
+                            isInProgress ? 'bg-gradient-to-r from-green-500 to-cyan-500 text-white' :
                             'bg-gray-600 text-gray-300'
                           }`}>
                             {isCompleted ? '✓' : index + 1}
                           </div>
                           <div className={`text-xs font-medium transition-all duration-500 ${
                             isCompleted ? 'text-green-400' :
-                            isInProgress ? 'text-red-400' :
+                            isInProgress ? 'text-green-400' :
                             'text-gray-400'
                           }`}>
                             {step}
                           </div>
                           {isInProgress && (
                             <div className="ml-auto">
-                              <div className="w-2 h-2 border-2 border-red-400/30 border-t-red-400 rounded-full animate-spin" />
+                              <div className="w-2 h-2 border-2 border-green-400/30 border-t-green-400 rounded-full animate-spin" />
                             </div>
                           )}
                         </div>
@@ -747,15 +751,15 @@ const BusinessCreationDemo = () => {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl p-4 border border-red-500/20 backdrop-blur-sm">
+              <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl p-4 border border-green-500/20 backdrop-blur-sm">
                 <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-red-400" />
+                  <Zap className="w-4 h-4 text-green-400" />
                   {t.currentProcess}
                 </h3>
                 
                 <div className="bg-gradient-to-r from-gray-700/30 to-gray-800/30 rounded-lg p-3 mb-3 border border-gray-600/30">
                   <h4 className="font-semibold text-white mb-1 flex items-center gap-1">
-                    <Brain className="w-3 h-3 text-red-400" />
+                    <Brain className="w-3 h-3 text-green-400" />
                     {t.neuralProcess}
                   </h4>
                   <div className="text-xs text-gray-300">
@@ -772,7 +776,7 @@ const BusinessCreationDemo = () => {
 
                 <div className="bg-gradient-to-r from-gray-700/30 to-gray-800/30 rounded-lg p-3 border border-gray-600/30">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-1">
-                    <Globe className="w-3 h-3 text-red-400" />
+                    <Globe className="w-3 h-3 text-green-400" />
                     {t.systemStatus}
                   </h4>
                   <div className="space-y-1">
@@ -784,7 +788,7 @@ const BusinessCreationDemo = () => {
                         </span>
                         <span className={`px-1 py-0.5 rounded text-xs font-bold border ${
                           developmentProgress > (index + 1) * 15 ? 'bg-green-500/20 text-green-400 border-green-500/30' :
-                          developmentProgress > index * 15 ? 'bg-red-500/20 text-red-400 border-red-500/30' :
+                          developmentProgress > index * 15 ? 'bg-green-500/20 text-green-400 border-green-500/30' :
                           'bg-gray-500/20 text-gray-400 border-gray-500/30'
                         }`}>
                           {developmentProgress > (index + 1) * 15 ? t.techStackStatuses.completed :
