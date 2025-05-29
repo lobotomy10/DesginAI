@@ -377,6 +377,25 @@ const BusinessCreationDemo = () => {
               <p className="text-gray-300 text-base">{t.votingSystemSubtitle}</p>
             </div>
 
+            {/* Video Section */}
+            <div className="relative mb-6">
+              <div className="bg-gradient-to-r from-cyan-900/50 to-purple-900/50 rounded-xl p-4 border border-cyan-500/30 backdrop-blur-sm">
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-purple-400/5 rounded-xl animate-pulse" />
+                <div className="relative">
+                  <video
+                    className="w-full h-auto rounded-lg shadow-lg"
+                    controls
+                    muted
+                    preload="metadata"
+                    style={{ maxHeight: '300px' }}
+                  >
+                    <source src="./contents/CM02-2.mp4" type="video/mp4" />
+                    お使いのブラウザはビデオタグをサポートしていません。
+                  </video>
+                </div>
+              </div>
+            </div>
+
             <div className="relative mb-6">
               <div className="bg-gradient-to-r from-cyan-900/50 to-purple-900/50 rounded-xl p-4 border border-cyan-500/30 backdrop-blur-sm">
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-purple-400/5 rounded-xl animate-pulse" />
