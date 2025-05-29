@@ -268,7 +268,11 @@ const BusinessCreationDemo = () => {
           setCurrentStage(4);
           return 100;
         }
-        return prev + Math.random() * 0.5 + 0.2; // より遅い進行
+        if (prev >= 30) {
+          return prev + Math.random() * 0.2 + 0.1; // 30%以降は約0.1〜0.3%の増加
+        } else {
+          return prev + Math.random() * 0.5 + 0.2; // 30%未満は約0.2〜0.7%の増加
+        }
       });
     }, 200);
 
