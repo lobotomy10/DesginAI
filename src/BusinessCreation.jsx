@@ -358,7 +358,7 @@ const BusinessCreationDemo = () => {
         </div>
 
         <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
-          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-cyan-500/20 p-6 max-w-2xl w-full">
+          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-cyan-500/20 p-6 max-w-4xl w-full">
             <div className="text-center mb-6">
               <div className="relative mb-4">
                 <Users className="w-16 h-16 text-cyan-400 mx-auto animate-pulse" />
@@ -461,7 +461,7 @@ const BusinessCreationDemo = () => {
         </div>
 
         <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
-          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-green-500/20 p-6 max-w-2xl w-full">
+          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-green-500/20 p-6 max-w-4xl w-full">
             <div className="text-center mb-6">
               <div className="relative mb-4">
                 <CheckCircle className="w-16 h-16 text-green-400 mx-auto animate-bounce" />
@@ -526,7 +526,7 @@ const BusinessCreationDemo = () => {
         </div>
 
         <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
-          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-purple-500/20 p-6 max-w-6xl w-full">
+          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-purple-500/20 p-6 max-w-full w-full">
             <div className="text-center mb-6">
               <div className="relative mb-4">
                 <Code className="w-16 h-16 text-purple-400 mx-auto" />
@@ -655,8 +655,8 @@ const BusinessCreationDemo = () => {
           }} />
         </div>
 
-        <div className="relative z-10 flex items-center justify-center min-h-screen p-3">
-          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-red-500/20 p-4 max-w-7xl w-full">
+        <div className="relative z-10 flex items-center justify-center min-h-screen p-2">
+          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-red-500/20 p-4 max-w-full w-full">
             <div className="text-center mb-4">
               <div className="relative mb-3">
                 <Clock className="w-12 h-12 text-red-400 mx-auto animate-spin" />
@@ -819,7 +819,7 @@ const BusinessCreationDemo = () => {
         </div>
 
         <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
-          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-green-500/20 p-6 max-w-4xl w-full text-center">
+          <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-green-500/20 p-6 max-w-5xl w-full text-center">
             <div className="relative mb-6">
               <Rocket className="w-16 h-16 text-green-400 mx-auto animate-bounce" />
               <div className="absolute inset-0 bg-green-400/20 rounded-full animate-ping" />
