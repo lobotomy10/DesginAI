@@ -104,6 +104,7 @@ const BusinessCreationDemo = () => {
       developmentTime: "Development Time",
       neuralModules: "Neural Modules",  
       newVenture: "INITIALIZE NEW NEURAL VENTURE",
+      nextStage: "次へ",
       
       // 技術スタック
       techStack: [
@@ -189,8 +190,9 @@ const BusinessCreationDemo = () => {
       viewReport: "VIEW NEURAL REPORT", 
       neuralSynthesis: "Neural Synthesis",
       developmentTime: "Development Time",
-      neuralModules: "Neural Modules",
+      neuralModules: "Neural Modules",  
       newVenture: "INITIALIZE NEW NEURAL VENTURE",
+      nextStage: "次へ",
       
       // 技術スタック
       techStack: [
@@ -265,7 +267,6 @@ const BusinessCreationDemo = () => {
       setDevelopmentProgress(prev => {
         if (prev >= 50) {
           clearInterval(interval);
-          setCurrentStage(4);
           return 50; // 50%で停止
         }
         if (prev >= 30) {
@@ -799,6 +800,20 @@ const BusinessCreationDemo = () => {
                   </div>
                 </div>
               </div>
+            </div>
+            
+            {/* 右下に小さな「次へ」ボタン */}
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={() => setCurrentStage(4)}
+                className="relative group overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-cyan-600 rounded-lg blur-sm group-hover:blur-md transition-all duration-300" />
+                <div className="relative bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-400 hover:to-cyan-400 text-white py-1.5 px-4 rounded-lg font-medium text-sm transition-all duration-300 flex items-center justify-center gap-1">
+                  {t.nextStage}
+                  <ArrowRight className="w-3 h-3" />
+                </div>
+              </button>
             </div>
           </div>
         </div>
