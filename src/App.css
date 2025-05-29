@@ -40,3 +40,20 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Floating keywords animation */
+@keyframes float-up {
+  0% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.floating-keyword {
+  animation: float-up 2s ease-out forwards;
+  opacity: 0;
+}
