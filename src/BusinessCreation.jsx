@@ -1153,117 +1153,40 @@ const CowNosePrintGenerator = ({ language, texts, setCurrentStage }) => {
     
     setIsProcessing(true);
     
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-    
-    img.onload = () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      
-      ctx.drawImage(img, 0, 0);
-      
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imageData.data;
-      
-      for (let i = 0; i < data.length; i += 4) {
-        const gray = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
-        
-        const enhanced = gray < 100 ? Math.max(0, gray * 0.5) : Math.min(255, gray * 1.8);
-        
-        data[i] = enhanced;     // Red
-        data[i + 1] = enhanced; // Green
-        data[i + 2] = enhanced; // Blue
-      }
-      
-      const blurredData = new Uint8ClampedArray(data.length);
-      const blurRadius = 1;
-      
-      for (let y = 0; y < canvas.height; y++) {
-        for (let x = 0; x < canvas.width; x++) {
-          let r = 0, g = 0, b = 0, a = 0;
-          let count = 0;
-          
-          for (let ky = -blurRadius; ky <= blurRadius; ky++) {
-            for (let kx = -blurRadius; kx <= blurRadius; kx++) {
-              const posX = Math.min(canvas.width - 1, Math.max(0, x + kx));
-              const posY = Math.min(canvas.height - 1, Math.max(0, y + ky));
-              const idx = (posY * canvas.width + posX) * 4;
-              
-              r += data[idx];
-              g += data[idx + 1];
-              b += data[idx + 2];
-              a += data[idx + 3];
-              count++;
-            }
-          }
-          
-          const outIdx = (y * canvas.width + x) * 4;
-          blurredData[outIdx] = r / count;
-          blurredData[outIdx + 1] = g / count;
-          blurredData[outIdx + 2] = b / count;
-          blurredData[outIdx + 3] = a / count;
-        }
-      }
-      
-      const processedData = new Uint8ClampedArray(data.length);
-      for (let y = 1; y < canvas.height - 1; y++) {
-        for (let x = 1; x < canvas.width - 1; x++) {
-          const idx = (y * canvas.width + x) * 4;
-          
-          const gx = (
-            -1 * blurredData[((y-1) * canvas.width + (x-1)) * 4] +
-            1 * blurredData[((y-1) * canvas.width + (x+1)) * 4] +
-            -2 * blurredData[(y * canvas.width + (x-1)) * 4] +
-            2 * blurredData[(y * canvas.width + (x+1)) * 4] +
-            -1 * blurredData[((y+1) * canvas.width + (x-1)) * 4] +
-            1 * blurredData[((y+1) * canvas.width + (x+1)) * 4]
-          );
-          
-          const gy = (
-            -1 * blurredData[((y-1) * canvas.width + (x-1)) * 4] +
-            -2 * blurredData[((y-1) * canvas.width + x) * 4] +
-            -1 * blurredData[((y-1) * canvas.width + (x+1)) * 4] +
-            1 * blurredData[((y+1) * canvas.width + (x-1)) * 4] +
-            2 * blurredData[((y+1) * canvas.width + x) * 4] +
-            1 * blurredData[((y+1) * canvas.width + (x+1)) * 4]
-          );
-          
-          const magnitude = Math.sqrt(gx * gx + gy * gy);
-          
-          let edgeValue;
-          if (magnitude > 30) {
-            edgeValue = 255; // Strong edge - white
-          } else if (magnitude > 15) {
-            edgeValue = 180; // Medium edge - light gray
-          } else {
-            edgeValue = 0;   // No edge - black
-          }
-          
-          processedData[idx] = edgeValue;
-          processedData[idx + 1] = edgeValue;
-          processedData[idx + 2] = edgeValue;
-          processedData[idx + 3] = 255; // Alpha
-        }
-      }
-      
-      const newImageData = new ImageData(processedData, canvas.width, canvas.height);
-      ctx.putImageData(newImageData, 0, 0);
-      
-      setProcessedImage(canvas.toDataURL('image/png'));
+    setTimeout(() => {
+      setProcessedImage('/images/fixed-nose-print.png');
       setIsProcessing(false);
-    };
-    
-    img.src = uploadedImage;
+    }, 800); // Short delay to simulate processing
   };
 
   const downloadNosePrint = () => {
     if (!processedImage) return;
     
-    const link = document.createElement('a');
-    link.download = 'cow-nose-print.png';
-    link.href = processedImage;
-    link.click();
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      
+      const link = document.createElement('a');
+      link.download = 'cow-nose-print.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    };
+    
+    if (processedImage.startsWith('data:')) {
+      const link = document.createElement('a');
+      link.download = 'cow-nose-print.png';
+      link.href = processedImage;
+      link.click();
+    } else {
+      img.src = processedImage;
+    }
   };
 
   const ParticleBackground = () => {
