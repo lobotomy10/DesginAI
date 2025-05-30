@@ -40,7 +40,7 @@ const BusinessCreationDemo = () => {
   
   // 🌐 言語切り替え機能
   const [language, setLanguage] = useState('ja'); // 'ja' or 'en'
-
+  
   // 🌐 言語設定オブジェクト
   const texts = {
     ja: {
@@ -67,6 +67,18 @@ const BusinessCreationDemo = () => {
       keywordInputPlaceholder: "AI\n人工知能\n機械学習\n...",
       generateKeywords: "キーワード生成",
       clearKeywords: "クリア",
+      
+      nosePrintTitle: "牛鼻紋生成システム",
+      nosePrintSubtitle: "個体識別用鼻紋パターン抽出",
+      uploadImage: "鼻画像をアップロード",
+      processImage: "鼻紋を生成",
+      downloadPrint: "鼻紋をダウンロード",
+      processing: "パターン解析中...",
+      uploadInstruction: "牛の鼻の画像をアップロードしてください",
+      dragDrop: "ここにファイルをドラッグするか、クリックして選択",
+      supportedFormats: "対応形式: JPG, PNG, WebP",
+      generatedNosePrint: "生成された鼻紋",
+      backToMainMenu: "メインメニューに戻る",
       
       // Stage 1 - 事業決定画面  
       consensusLocked: "CONSENSUS LOCKED",
@@ -167,6 +179,18 @@ const BusinessCreationDemo = () => {
       keywordInputPlaceholder: "AI\nArtificial Intelligence\nMachine Learning\n...",
       generateKeywords: "Generate Keywords",
       clearKeywords: "Clear",
+      
+      nosePrintTitle: "Cow Nose Print Generator",
+      nosePrintSubtitle: "Individual Identification Nose Pattern Extraction",
+      uploadImage: "Upload Nose Image",
+      processImage: "Generate Nose Print",
+      downloadPrint: "Download Nose Print",
+      processing: "Analyzing patterns...",
+      uploadInstruction: "Please upload a cow nose image",
+      dragDrop: "Drag file here or click to select",
+      supportedFormats: "Supported: JPG, PNG, WebP",
+      generatedNosePrint: "Generated Nose Print",
+      backToMainMenu: "Back to Main Menu",
       
       // Stage 1 - 事業決定画面
       consensusLocked: "CONSENSUS LOCKED", 
@@ -417,12 +441,12 @@ const BusinessCreationDemo = () => {
             {/* キーワード入力フォーム */}
             <div className="mb-8">
               <label className="block text-cyan-300 text-lg font-medium mb-4">
-                {language === 'ja' ? t.ja.keywordInputLabel : t.en.keywordInputLabel}
+                {t.keywordInputLabel}
               </label>
               <textarea
                 value={keywordInput}
                 onChange={(e) => setKeywordInput(e.target.value)}
-                placeholder={language === 'ja' ? t.ja.keywordInputPlaceholder : t.en.keywordInputPlaceholder}
+                placeholder={t.keywordInputPlaceholder}
                 className="w-full h-32 bg-gray-800/50 border border-cyan-500/30 rounded-lg p-4 text-cyan-300 placeholder-gray-500 backdrop-blur-sm focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300"
                 rows={6}
               />
@@ -431,13 +455,13 @@ const BusinessCreationDemo = () => {
                   onClick={handleKeywordSubmit}
                   className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white py-2 px-6 rounded-lg font-bold transition-all duration-300"
                 >
-                  {language === 'ja' ? t.ja.generateKeywords : t.en.generateKeywords}
+                  {t.generateKeywords}
                 </button>
                 <button
                   onClick={handleClearKeywords}
                   className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white py-2 px-6 rounded-lg font-bold transition-all duration-300"
                 >
-                  {language === 'ja' ? t.ja.clearKeywords : t.en.clearKeywords}
+                  {t.clearKeywords}
                 </button>
               </div>
             </div>
@@ -459,7 +483,7 @@ const BusinessCreationDemo = () => {
               </div>
             ) : (
               <div className="flex flex-wrap justify-center gap-3 mb-8 max-h-96 overflow-hidden">
-                {t.floatingKeywords.map((keyword, index) => (
+                {texts[language].floatingKeywords.map((keyword, index) => (
                   <div
                     key={index}
                     className="floating-keyword bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 px-4 py-2 rounded-full text-sm font-medium border border-cyan-500/30 backdrop-blur-sm hover:from-cyan-500/30 hover:to-blue-500/30 transition-all duration-300"
@@ -474,16 +498,38 @@ const BusinessCreationDemo = () => {
             )}
 
             <div className="text-center">
-              <button
-                onClick={() => setCurrentStage(0)}
-                className="relative group overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300" />
-                <div className="relative bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white py-3 px-8 rounded-xl font-bold text-base transition-all duration-300 flex items-center justify-center gap-2">
-                  <Zap className="w-5 h-5" />
-                  {language === 'ja' ? 'ニューラル投票システムへ進む' : 'PROCEED TO NEURAL VOTING SYSTEM'}
-                </div>
-              </button>
+              <div className="flex gap-4 justify-center">
+                <button
+                  onClick={() => setCurrentStage(0)}
+                  className="relative group overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300" />
+                  <div className="relative bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white py-3 px-8 rounded-xl font-bold text-base transition-all duration-300 flex items-center justify-center gap-2">
+                    <Zap className="w-5 h-5" />
+                    {language === 'ja' ? 'ニューラル投票システムへ進む' : 'PROCEED TO NEURAL VOTING SYSTEM'}
+                  </div>
+                </button>
+                <button
+                  onClick={() => setCurrentStage(5)}
+                  className="relative group overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300" />
+                  <div className="relative bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white py-3 px-8 rounded-xl font-bold text-base transition-all duration-300 flex items-center justify-center gap-2">
+                    <Brain className="w-5 h-5" />
+                    {language === 'ja' ? '牛鼻紋生成システム' : 'COW NOSE PRINT GENERATOR'}
+                  </div>
+                </button>
+                <button
+                  onClick={() => setCurrentStage(5)}
+                  className="relative group overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300" />
+                  <div className="relative bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 text-white py-3 px-8 rounded-xl font-bold text-base transition-all duration-300 flex items-center justify-center gap-2">
+                    <Brain className="w-5 h-5" />
+                    {language === 'ja' ? '牛鼻紋生成システム' : 'COW NOSE PRINT GENERATOR'}
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -1063,6 +1109,325 @@ const BusinessCreationDemo = () => {
       </div>
     );
   }
+  
+  if (currentStage === 5) {
+    return <CowNosePrintGenerator language={language} texts={texts} setCurrentStage={setCurrentStage} />;
+  }
+  
+  return null;
+};
+
+
+const CowNosePrintGenerator = ({ language, texts, setCurrentStage }) => {
+  const t = texts[language];
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [processedImage, setProcessedImage] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
+
+  const handleImageUpload = (file) => {
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setUploadedImage(e.target.result);
+        setProcessedImage(null);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    const file = e.dataTransfer.files[0];
+    handleImageUpload(file);
+  };
+
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    handleImageUpload(file);
+  };
+
+  const processNosePrint = () => {
+    if (!uploadedImage) return;
+    
+    setIsProcessing(true);
+    
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      
+      ctx.drawImage(img, 0, 0);
+      
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+      
+      for (let i = 0; i < data.length; i += 4) {
+        const gray = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
+        
+        const enhanced = gray < 128 ? Math.max(0, gray - 30) : Math.min(255, gray + 30);
+        
+        data[i] = enhanced;     // Red
+        data[i + 1] = enhanced; // Green
+        data[i + 2] = enhanced; // Blue
+      }
+      
+      const processedData = new Uint8ClampedArray(data);
+      for (let y = 1; y < canvas.height - 1; y++) {
+        for (let x = 1; x < canvas.width - 1; x++) {
+          const idx = (y * canvas.width + x) * 4;
+          
+          const gx = (
+            -1 * data[((y-1) * canvas.width + (x-1)) * 4] +
+            1 * data[((y-1) * canvas.width + (x+1)) * 4] +
+            -2 * data[(y * canvas.width + (x-1)) * 4] +
+            2 * data[(y * canvas.width + (x+1)) * 4] +
+            -1 * data[((y+1) * canvas.width + (x-1)) * 4] +
+            1 * data[((y+1) * canvas.width + (x+1)) * 4]
+          );
+          
+          const gy = (
+            -1 * data[((y-1) * canvas.width + (x-1)) * 4] +
+            -2 * data[((y-1) * canvas.width + x) * 4] +
+            -1 * data[((y-1) * canvas.width + (x+1)) * 4] +
+            1 * data[((y+1) * canvas.width + (x-1)) * 4] +
+            2 * data[((y+1) * canvas.width + x) * 4] +
+            1 * data[((y+1) * canvas.width + (x+1)) * 4]
+          );
+          
+          const magnitude = Math.sqrt(gx * gx + gy * gy);
+          const enhanced = Math.min(255, magnitude > 50 ? magnitude * 2 : magnitude * 0.5);
+          
+          processedData[idx] = enhanced;
+          processedData[idx + 1] = enhanced;
+          processedData[idx + 2] = enhanced;
+        }
+      }
+      
+      const newImageData = new ImageData(processedData, canvas.width, canvas.height);
+      ctx.putImageData(newImageData, 0, 0);
+      
+      setProcessedImage(canvas.toDataURL('image/png'));
+      setIsProcessing(false);
+    };
+    
+    img.src = uploadedImage;
+  };
+
+  const downloadNosePrint = () => {
+    if (!processedImage) return;
+    
+    const link = document.createElement('a');
+    link.download = 'cow-nose-print.png';
+    link.href = processedImage;
+    link.click();
+  };
+
+  const ParticleBackground = () => {
+    const [particles, setParticles] = useState([]);
+    
+    useEffect(() => {
+      const newParticles = [];
+      for (let i = 0; i < 50; i++) {
+        newParticles.push({
+          id: i,
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          size: Math.random() * 3 + 1,
+          speed: Math.random() * 2 + 1,
+          opacity: Math.random() * 0.5 + 0.2
+        });
+      }
+      setParticles(newParticles);
+    }, []);
+    
+    return (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {particles.map(particle => (
+          <div
+            key={particle.id}
+            className="absolute rounded-full bg-white"
+            style={{
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
+              width: `${particle.size}px`,
+              height: `${particle.size}px`,
+              opacity: particle.opacity,
+              animation: `float ${particle.speed}s infinite alternate ease-in-out`
+            }}
+          />
+        ))}
+      </div>
+    );
+  };
+
+  const LanguageToggle = () => (
+    <div className="fixed top-4 right-4 z-50">
+      <button
+        onClick={() => setLanguage(language === 'ja' ? 'en' : 'ja')}
+        className="group relative overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-600/20 to-gray-700/20 rounded-lg blur-sm group-hover:blur-md transition-all duration-300" />
+        <div className="relative bg-gradient-to-r from-gray-800/80 to-gray-900/80 backdrop-blur-xl border border-gray-600/30 rounded-lg px-3 py-2 text-xs font-medium text-gray-300 hover:text-white transition-all duration-300 flex items-center gap-2">
+          <Globe className="w-3 h-3" />
+          {language === 'ja' ? 'English' : '日本語'}
+        </div>
+      </button>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-brown-900 to-black relative overflow-hidden">
+      <ParticleBackground />
+      <div className="fixed top-4 right-4 z-50">
+        <button
+          onClick={() => setLanguage(language === 'ja' ? 'en' : 'ja')}
+          className="group relative overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-600/20 to-gray-700/20 rounded-lg blur-sm group-hover:blur-md transition-all duration-300" />
+          <div className="relative bg-gradient-to-r from-gray-800/80 to-gray-900/80 backdrop-blur-xl border border-gray-600/30 rounded-lg px-3 py-2 text-xs font-medium text-gray-300 hover:text-white transition-all duration-300 flex items-center gap-2">
+            <Globe className="w-3 h-3" />
+            {language === 'ja' ? 'English' : '日本語'}
+          </div>
+        </button>
+      </div>
+      
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(#8B4513 1px, transparent 1px),
+            linear-gradient(90deg, #8B4513 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px'
+        }} />
+      </div>
+
+      <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
+        <div className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-orange-500/20 p-6 max-w-4xl w-full">
+          <div className="text-center mb-6">
+            <div className="relative mb-4">
+              <Brain className="w-16 h-16 text-orange-400 mx-auto animate-pulse" />
+              <div className="absolute -top-2 -right-2 w-5 h-5 bg-gradient-to-r from-orange-400 to-red-500 rounded-full flex items-center justify-center">
+                <Zap className="w-2 h-2 text-white" />
+              </div>
+            </div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-2">
+              {t.nosePrintTitle}
+            </h1>
+            <p className="text-gray-300 text-base">{t.nosePrintSubtitle}</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Upload Section */}
+            <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl p-6 border border-orange-500/20">
+              <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                <Globe className="w-5 h-5 text-orange-400" />
+                {t.uploadImage}
+              </h3>
+              
+              <div
+                className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all duration-300 ${
+                  isDragOver ? 'border-orange-400 bg-orange-400/10' : 'border-orange-500/30 bg-gray-700/30'
+                }`}
+                onDrop={handleDrop}
+                onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
+                onDragLeave={() => setIsDragOver(false)}
+                onClick={() => document.getElementById('fileInput').click()}
+              >
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileSelect}
+                  className="hidden"
+                />
+                
+                {uploadedImage ? (
+                  <div>
+                    <img src={uploadedImage} alt="Uploaded" className="max-w-full max-h-48 mx-auto rounded-lg" />
+                    <p className="text-gray-400 text-sm mt-2">{t.uploadInstruction}</p>
+                  </div>
+                ) : (
+                  <div>
+                    <Globe className="w-12 h-12 text-orange-400 mx-auto mb-4" />
+                    <p className="text-gray-300 mb-2">{t.dragDrop}</p>
+                    <p className="text-gray-500 text-sm">{t.supportedFormats}</p>
+                  </div>
+                )}
+              </div>
+
+              <button
+                onClick={processNosePrint}
+                disabled={!uploadedImage || isProcessing}
+                className="w-full mt-4 relative group overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 rounded-xl blur-sm group-hover:blur-md transition-all duration-300" />
+                <div className="relative bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-400 hover:to-red-400 disabled:from-gray-600 disabled:to-gray-700 text-white py-3 rounded-lg font-bold transition-all duration-300 flex items-center justify-center gap-2">
+                  {isProcessing ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      {t.processing}
+                    </>
+                  ) : (
+                    <>
+                      <Zap className="w-5 h-5" />
+                      {t.processImage}
+                    </>
+                  )}
+                </div>
+              </button>
+            </div>
+
+            {/* Result Section */}
+            <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl p-6 border border-orange-500/20">
+              <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
+                <Code className="w-5 h-5 text-orange-400" />
+                {t.generatedNosePrint}
+              </h3>
+              
+              {processedImage ? (
+                <div>
+                  <img src={processedImage} alt="Nose Print" className="max-w-full max-h-48 mx-auto rounded-lg border border-orange-500/30" />
+                  <button
+                    onClick={downloadNosePrint}
+                    className="w-full mt-4 relative group overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl blur-sm group-hover:blur-md transition-all duration-300" />
+                    <div className="relative bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-400 hover:to-emerald-400 text-white py-3 rounded-lg font-bold transition-all duration-300 flex items-center justify-center gap-2">
+                      <CheckCircle className="w-5 h-5" />
+                      {t.downloadPrint}
+                    </div>
+                  </button>
+                </div>
+              ) : (
+                <div className="border-2 border-dashed border-gray-500/30 rounded-lg p-8 text-center">
+                  <Brain className="w-12 h-12 text-gray-500 mx-auto mb-4" />
+                  <p className="text-gray-500">{t.uploadInstruction}</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="text-center mt-6">
+            <button
+              onClick={() => setCurrentStage(-1)}
+              className="relative group overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-600 to-gray-700 rounded-xl blur-sm group-hover:blur-md transition-all duration-300" />
+              <div className="relative bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-400 hover:to-gray-500 text-white py-2 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2">
+                <ChevronRight className="w-4 h-4 rotate-180" />
+                {t.backToMainMenu}
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default BusinessCreationDemo;
